@@ -36,6 +36,26 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
+  inform-customer:
+    build: ../../kafka/java/inform-customer/
+    networks:
+      - flowing
+    depends_on:
+      - kafka
+    environment:
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+
+  order-validation:
+    build: ../../kafka/java/order-validation/
+    networks:
+      - flowing
+    depends_on:
+      - kafka
+    environment:
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+
   payment:
     build: ../../kafka/java/payment/
     networks:

@@ -1,7 +1,9 @@
 package io.flowing.retail.payment.messages;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
+import io.flowing.retail.payment.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -22,21 +24,12 @@ public class MessageListener {
   private MessageSender messageSender;
 
   @StreamListener(target = Sink.INPUT, 
-      condition="(headers['messageType']?:'')=='RetrievePaymentCommand'")
+      condition="(headers['messageType']?:'')=='OrderApprovedEvent'")
   @Transactional
-  public void retrievePaymentCommandReceived(String messageJson) throws JsonParseException, JsonMappingException, IOException {
-    Message<RetrievePaymentCommandPayload> message = new ObjectMapper().readValue(messageJson, new TypeReference<Message<RetrievePaymentCommandPayload>>(){});
-    RetrievePaymentCommandPayload retrievePaymentCommand = message.getPayload();    
-    
-    System.out.println("Retrieve payment: " + retrievePaymentCommand.getAmount() + " for " + retrievePaymentCommand.getRefId());
-    
-    messageSender.send( //
-        new Message<PaymentReceivedEventPayload>( //
-            "PaymentReceivedEvent", //
-            message.getTraceId(), //
-            new PaymentReceivedEventPayload() //
-              .setRefId(retrievePaymentCommand.getRefId()))
-        .setCorrelationId(message.getCorrelationId()));
+  public void orderApprovedReceived(Message<Order> message) throws JsonParseException, JsonMappingException, IOException {
+
+    message.setMessageType("PaymentReceivedEvent");
+    messageSender.send(message);
 
   }
   

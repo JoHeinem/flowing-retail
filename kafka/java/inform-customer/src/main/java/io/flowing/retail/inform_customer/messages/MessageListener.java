@@ -1,8 +1,8 @@
-package io.flowing.retail.shipping.messages;
+package io.flowing.retail.inform_customer.messages;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.flowing.retail.shipping.dto.Order;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import io.flowing.retail.inform_customer.dto.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 @Component
 @EnableBinding(Sink.class)
 public class MessageListener {
@@ -20,18 +22,17 @@ public class MessageListener {
   
   @Autowired
   private MessageSender messageSender;
-  
+
   @StreamListener(target = Sink.INPUT,
-      condition="(headers['messageType']?:'')=='GoodsAvailableEvent'")
+    condition = "(headers['messageType']?:'')=='GoodsUnavailableEvent'")
   @Transactional
-  public void goodAvailableReveived(Message<Order> message) throws Exception {
+  public void goodUnavailableReveived(Message<Order> message) throws JsonParseException, JsonMappingException, IOException {
 
     logger.info(
-      "The following order has successfully being shipped: {}",
+      "The following order could not be shipped, since they are not available in our inventory: {}",
       message.getPayload()
     );
-
   }
-    
-    
+
+
 }

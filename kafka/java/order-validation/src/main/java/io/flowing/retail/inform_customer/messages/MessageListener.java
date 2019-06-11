@@ -1,6 +1,8 @@
-package io.flowing.retail.inventory.messages;
+package io.flowing.retail.inform_customer.messages;
 
-import io.flowing.retail.inventory.dto.Order;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import io.flowing.retail.inform_customer.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -8,6 +10,7 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -16,20 +19,21 @@ public class MessageListener {
   
   @Autowired
   private MessageSender messageSender;
-  
-  @StreamListener(target = Sink.INPUT,
-      condition="(headers['messageType']?:'')=='PaymentReceivedEvent'")
+
+  @StreamListener(target = Sink.INPUT, 
+      condition="(headers['messageType']?:'')=='OrderPlacedEvent'")
   @Transactional
-  public void paymentReveivedReveived(Message<Order> message) {
+  public void orderPlacedReceived(Message<Order> message) throws JsonParseException, JsonMappingException, IOException {
 
     double prob = ThreadLocalRandom.current().nextDouble();
-    if (prob > 0.05) {
-      message.setMessageType("GoodsAvailableEvent");
+    if (prob > 0.1) {
+      message.setMessageType("OrderApprovedEvent");
     } else {
-      message.setMessageType("GoodsUnavailableEvent");
+      message.setMessageType("OrderRejectedEvent");
     }
-
     messageSender.send(message);
   }
-
+  
+    
+    
 }
