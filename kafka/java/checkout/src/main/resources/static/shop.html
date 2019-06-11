@@ -147,12 +147,11 @@
 	<script type="text/javascript">
     var count = 0;
 
-    var customer = {
-      name: $('#name').val(),
-      address: $('#address').val()
-    };
-
 		function placeOrder() {
+      var customer = {
+        name: $('#name').val(),
+        address: $('#address').val()
+      };
       var item1 = {
         articleId: "bball-high-white",
         amount:$('[name="product-1"]').val()
@@ -186,7 +185,7 @@
               }
           }).done(function(result) {
             count = count+1;
-            $('#thanks').html('Thank you for order #' + count + '.<br>Trace id: <b>' + JSON.parse(result).traceId + '</b>');
+            $('#thanks').html('Thank you for order #' + count + '.<br>Trace id: <b>' + result.traceId + '</b>');
           })
 		}
 
