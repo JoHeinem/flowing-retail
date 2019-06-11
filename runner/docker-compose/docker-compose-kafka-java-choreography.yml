@@ -38,7 +38,7 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   payment:
-    image: flowingretail/kafka-java-choreography-payment
+    build: ../../kafka/java/payment/
     networks:
       - flowing
     ports:
@@ -50,7 +50,7 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   inventory:
-    image: flowingretail/kafka-java-choreography-inventory
+    build: ../../kafka/java/inventory/
     networks:
       - flowing
     depends_on:
@@ -60,7 +60,7 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   shipping:
-    image: flowingretail/kafka-java-choreography-shipping
+    build: ../../kafka/java/shipping/
     networks:
       - flowing
     depends_on:
@@ -80,13 +80,6 @@ services:
     environment:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
-
-  docs:
-    image: flowingretail/docs
-    networks:
-      - flowing
-    ports:
-      - "8099:80"
 
 networks:
   flowing:
