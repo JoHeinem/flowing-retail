@@ -1,9 +1,12 @@
 package io.flowing.retail.checkout.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
   
   private String orderId = "checkout-generated-" + UUID.randomUUID().toString();

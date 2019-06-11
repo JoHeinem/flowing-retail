@@ -179,7 +179,7 @@
 			 $.ajax({
               url: "./api/order",
               type: "put",
-              data: JSON.stringify({order: order}),
+              data: JSON.stringify(order),
               dataType: 'json',
               headers: {
                 "Content-Type": "application/json"
