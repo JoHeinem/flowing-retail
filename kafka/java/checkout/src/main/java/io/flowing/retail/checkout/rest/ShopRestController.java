@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ import io.flowing.retail.checkout.messages.MessageSender;
 
 @RestController
 public class ShopRestController {
+
+  private static final Logger logger = LoggerFactory.getLogger(ShopRestController.class);
   
   @Autowired
   private MessageSender messageSender;
@@ -41,6 +45,8 @@ public class ShopRestController {
 
   @RequestMapping(path = "/api/order", method = PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
   public String placeOrder(Order order) {
+
+    logger.info("The following order has been received: {}", order.toString());
 
     Message<Order> message = new Message<Order>("OrderPlacedEvent", order);
     messageSender.send(message);
