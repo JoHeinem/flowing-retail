@@ -30,7 +30,7 @@ services:
     networks:
       - flowing
     ports:
-      - "8090:8090"
+      - "3000:3000"
     depends_on:
       - kafka
     environment:
