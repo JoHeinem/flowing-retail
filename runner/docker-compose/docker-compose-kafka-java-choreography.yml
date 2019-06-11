@@ -25,7 +25,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   checkout:
-    image: flowingretail/kafka-java-checkout
+    build: ../../kafka/java/checkout
     networks:
       - flowing
     ports:
@@ -46,7 +46,7 @@ services:
       - kafka
     environment:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181      
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   inventory:
     image: flowingretail/kafka-java-choreography-inventory
@@ -56,7 +56,7 @@ services:
       - kafka
     environment:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181  
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   shipping:
     image: flowingretail/kafka-java-choreography-shipping
@@ -66,7 +66,7 @@ services:
       - kafka
     environment:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181        
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   monitor:
     image: flowingretail/kafka-java-monitor
@@ -78,7 +78,7 @@ services:
       - kafka
     environment:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181   
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
 
   docs:
     image: flowingretail/docs
