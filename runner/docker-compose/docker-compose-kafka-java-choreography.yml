@@ -25,7 +25,8 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   checkout:
-    build: ../../kafka/java/checkout
+    build: ../../kafka/java/checkout/
+    image: flowingretail/kafka-java-checkout
     networks:
       - flowing
     ports:
