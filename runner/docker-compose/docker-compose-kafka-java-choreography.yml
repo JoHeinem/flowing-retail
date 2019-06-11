@@ -26,7 +26,6 @@ services:
 
   checkout:
     build: ../../kafka/java/checkout/
-    image: flowingretail/kafka-java-checkout
     networks:
       - flowing
     ports:
