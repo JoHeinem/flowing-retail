@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,7 @@ public class ShopRestController {
     return "{\"traceId\": \"" + message.getTraceId() + "\"}";
   }
 
-  @RequestMapping(path = "/api/order", method = PUT)
+  @RequestMapping(path = "/api/order", method = PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
   public String placeOrder(Order order) {
 
     Message<Order> message = new Message<Order>("OrderPlacedEvent", order);
