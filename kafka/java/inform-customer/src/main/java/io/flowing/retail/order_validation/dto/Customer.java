@@ -1,4 +1,4 @@
-package io.flowing.retail.inform_customer.dto;
+package io.flowing.retail.order_validation.dto;
 
 public class Customer {
   

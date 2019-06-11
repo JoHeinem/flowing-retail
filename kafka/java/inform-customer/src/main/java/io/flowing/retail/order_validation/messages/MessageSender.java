@@ -1,4 +1,4 @@
-package io.flowing.retail.inform_customer.messages;
+package io.flowing.retail.order_validation.messages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

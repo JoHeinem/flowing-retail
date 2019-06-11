@@ -53,7 +53,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-    				  <mainClass>io.flowing.retail.inform_customer.ValidateOrderApplication</mainClass>
+    				  <mainClass>io.flowing.retail.order_validation.InformCustomerApplication</mainClass>
                 </configuration>
              </plugin>
 			 <plugin>

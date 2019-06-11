@@ -1,13 +1,13 @@
-package io.flowing.retail.inform_customer;
+package io.flowing.retail.order_validation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ValidateOrderApplication {
+public class InformCustomerApplication {
 
   public static void main(String[] args) throws Exception {
-    SpringApplication.run(ValidateOrderApplication.class, args);
+    SpringApplication.run(InformCustomerApplication.class, args);
   }
 
 }

@@ -1,4 +1,4 @@
-package io.flowing.retail.inform_customer.messages;
+package io.flowing.retail.order_validation.messages;
 
 import java.util.Date;
 import java.util.UUID;

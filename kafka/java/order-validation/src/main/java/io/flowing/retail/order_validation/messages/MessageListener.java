@@ -1,8 +1,8 @@
-package io.flowing.retail.inform_customer.messages;
+package io.flowing.retail.order_validation.messages;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import io.flowing.retail.inform_customer.dto.Order;
+import io.flowing.retail.order_validation.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;

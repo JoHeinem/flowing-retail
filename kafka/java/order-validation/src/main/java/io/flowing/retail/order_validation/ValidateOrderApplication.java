@@ -1,4 +1,4 @@
-package io.flowing.retail.inform_customer;
+package io.flowing.retail.order_validation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
