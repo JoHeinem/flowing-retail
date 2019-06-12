@@ -29,14 +29,14 @@ public class MessageListener {
 
     logger.info("Received an OrderPlacedEvent with the order: {}", message.getPayload());
 
-    message.setId(UUID.randomUUID().toString());
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
     double prob = ThreadLocalRandom.current().nextDouble();
     if (prob > 0.1) {
-      message.setMessageType("OrderApprovedEvent");
+      newMessage.setMessageType("OrderApprovedEvent");
     } else {
-      message.setMessageType("OrderRejectedEvent");
+      newMessage.setMessageType("OrderRejectedEvent");
     }
-    messageSender.send(message);
+    messageSender.send(newMessage);
   }
   
     

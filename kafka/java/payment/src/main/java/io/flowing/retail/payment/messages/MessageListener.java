@@ -27,9 +27,9 @@ public class MessageListener {
   public void orderApprovedReceived(Message<Order> message) {
 
     logger.info("Received an OrderApprovedEvent with the order: {}", message.getPayload());
-    message.setId(UUID.randomUUID().toString());
-    message.setMessageType("PaymentReceivedEvent");
-    messageSender.send(message);
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
+    newMessage.setMessageType("PaymentReceivedEvent");
+    messageSender.send(newMessage);
 
   }
   

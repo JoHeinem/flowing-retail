@@ -29,15 +29,14 @@ public class MessageListener {
 
     logger.info("Received an PaymentReceivedEvent with the order: {}", message.getPayload());
 
-    message.setId(UUID.randomUUID().toString());
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
     double prob = ThreadLocalRandom.current().nextDouble();
     if (prob > 0.05) {
-      message.setMessageType("GoodsAvailableEvent");
+      newMessage.setMessageType("GoodsAvailableEvent");
     } else {
-      message.setMessageType("GoodsUnavailableEvent");
+      newMessage.setMessageType("GoodsUnavailableEvent");
     }
-
-    messageSender.send(message);
+    messageSender.send(newMessage);
   }
 
 }

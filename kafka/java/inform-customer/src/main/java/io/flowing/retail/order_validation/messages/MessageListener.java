@@ -30,9 +30,9 @@ public class MessageListener {
       "The following order could not be shipped, since they are not available in our inventory: {}",
       message.getPayload()
     );
-    message.setId(UUID.randomUUID().toString());
-    message.setMessageType("CustomerInformedEvent");
-    messageSender.send(message);
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
+    newMessage.setMessageType("CustomerInformedEvent");
+    messageSender.send(newMessage);
   }
 
 

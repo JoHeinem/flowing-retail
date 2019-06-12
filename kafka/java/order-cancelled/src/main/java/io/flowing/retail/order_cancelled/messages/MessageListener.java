@@ -25,9 +25,9 @@ public class MessageListener {
   public void orderPlacedReceived(Message<Order> message) {
 
     logger.info("Received an OrderRejectedEvent with the order: {}", message.getPayload());
-
-    message.setMessageType("OrderCancelledEvent");
-    messageSender.send(message);
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
+    newMessage.setMessageType("OrderCancelledEvent");
+    messageSender.send(newMessage);
   }
 
   @StreamListener(target = Sink.INPUT,
@@ -36,9 +36,9 @@ public class MessageListener {
   public void customerInformedReceived(Message<Order> message) {
 
     logger.info("Received an CustomerInformedEvent with the order: {}", message.getPayload());
-
-    message.setMessageType("OrderCancelledEvent");
-    messageSender.send(message);
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
+    newMessage.setMessageType("OrderCancelledEvent");
+    messageSender.send(newMessage);
   }
   
     

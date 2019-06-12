@@ -27,9 +27,9 @@ public class MessageListener {
   public void goodShippedReceived(Message<Order> message) {
 
     logger.info("Received an GoodShippedEvent with the order: {}", message.getPayload());
-    message.setId(UUID.randomUUID().toString());
-    message.setMessageType("OrderCompletedEvent");
-    messageSender.send(message);
+    Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
+    newMessage.setMessageType("OrderCompletedEvent");
+    messageSender.send(newMessage);
   }
 
 }
