@@ -35,8 +35,7 @@ services:
 
   inform-customer:
     build: ../../kafka/java/inform-customer/
-    networks:
-      - flowing
+    network_mode: host
     depends_on:
       - kafka
     environment:
