@@ -10,6 +10,7 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -28,6 +29,7 @@ public class MessageListener {
 
     logger.info("Received an PaymentReceivedEvent with the order: {}", message.getPayload());
 
+    message.setId(UUID.randomUUID().toString());
     double prob = ThreadLocalRandom.current().nextDouble();
     if (prob > 0.05) {
       message.setMessageType("GoodsAvailableEvent");

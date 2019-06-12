@@ -10,6 +10,8 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Component
 @EnableBinding(Sink.class)
 public class MessageListener {
@@ -28,6 +30,7 @@ public class MessageListener {
       "The following order could not be shipped, since they are not available in our inventory: {}",
       message.getPayload()
     );
+    message.setId(UUID.randomUUID().toString());
     message.setMessageType("CustomerInformedEvent");
     messageSender.send(message);
   }

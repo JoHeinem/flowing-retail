@@ -10,6 +10,8 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Component
 @EnableBinding(Sink.class)
 public class MessageListener {
@@ -29,6 +31,7 @@ public class MessageListener {
       message.getPayload()
     );
 
+    message.setId(UUID.randomUUID().toString());
     message.setMessageType("GoodShippedEvent");
     messageSender.send(message);
 

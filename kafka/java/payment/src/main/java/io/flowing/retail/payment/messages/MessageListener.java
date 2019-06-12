@@ -10,6 +10,8 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Component
 @EnableBinding(Sink.class)
 public class MessageListener {
@@ -25,7 +27,7 @@ public class MessageListener {
   public void orderApprovedReceived(Message<Order> message) {
 
     logger.info("Received an OrderApprovedEvent with the order: {}", message.getPayload());
-
+    message.setId(UUID.randomUUID().toString());
     message.setMessageType("PaymentReceivedEvent");
     messageSender.send(message);
 
