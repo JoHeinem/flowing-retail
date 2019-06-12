@@ -39,7 +39,44 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.8</version>
+		</dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.8</version>
+    </dependency>
+		<dependency>
+			<groupId>org.camunda.bpm.model</groupId>
+			<artifactId>camunda-bpmn-model</artifactId>
+			<version>7.11.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.camunda.bpm.qa</groupId>
+			<artifactId>camunda-qa-performance-tests-engine</artifactId>
+			<version>7.11.0</version>
+		</dependency>
+
+		<dependency>
+    <groupId>com.jayway.jsonpath</groupId>
+    <artifactId>json-path</artifactId>
+    <version>2.4.0</version>
+</dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>2.9.9</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
     <build>
     	<plugins>
 			 <plugin>

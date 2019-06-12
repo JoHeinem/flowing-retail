@@ -1,5 +1,6 @@
 package io.flowing.retail.payment.messages;
 
+import io.flowing.retail.payment.RunProcessInstance;
 import io.flowing.retail.payment.dto.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +25,18 @@ public class MessageListener {
   @StreamListener(target = Sink.INPUT, 
       condition="(headers['messageType']?:'')=='OrderApprovedEvent'")
   @Transactional
-  public void orderApprovedReceived(Message<Order> message) {
+  public void orderApprovedReceived(Message<Order> message) throws Exception {
 
     logger.info("Received an OrderApprovedEvent with the order: {}", message.getPayload());
     Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
-    newMessage.setMessageType("PaymentReceivedEvent");
-    messageSender.send(newMessage);
 
+    boolean hasPaymentReceived = RunProcessInstance.run();
+    if (hasPaymentReceived) {
+      newMessage.setMessageType("PaymentReceivedEvent");
+    } else {
+      newMessage.setMessageType("PaymentFailedEvent");
+    }
+    messageSender.send(newMessage);
   }
   
     
