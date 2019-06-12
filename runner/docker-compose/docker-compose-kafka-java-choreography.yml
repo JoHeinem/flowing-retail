@@ -80,6 +80,24 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
+  order-cancelled:
+    build: ../../kafka/java/order-cancelled/
+    network_mode: host
+    depends_on:
+      - kafka
+    environment:
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
+
+  order-completed:
+    build: ../../kafka/java/order-completed/
+    network_mode: host
+    depends_on:
+      - kafka
+    environment:
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
+
   monitor:
     image: flowingretail/kafka-java-monitor
     network_mode: host

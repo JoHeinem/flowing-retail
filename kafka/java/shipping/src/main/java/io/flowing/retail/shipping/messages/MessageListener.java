@@ -1,7 +1,5 @@
 package io.flowing.retail.shipping.messages;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.flowing.retail.shipping.dto.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +22,15 @@ public class MessageListener {
   @StreamListener(target = Sink.INPUT,
       condition="(headers['messageType']?:'')=='GoodsAvailableEvent'")
   @Transactional
-  public void goodAvailableReveived(Message<Order> message) throws Exception {
+  public void goodAvailableReveived(Message<Order> message) {
 
     logger.info(
       "The following order has successfully being shipped: {}",
       message.getPayload()
     );
+
+    message.setMessageType("GoodShippedEvent");
+    messageSender.send(message);
 
   }
     

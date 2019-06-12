@@ -1,7 +1,5 @@
 package io.flowing.retail.order_validation.messages;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import io.flowing.retail.order_validation.dto.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +9,6 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
 
 @Component
 @EnableBinding(Sink.class)
@@ -26,12 +22,14 @@ public class MessageListener {
   @StreamListener(target = Sink.INPUT,
     condition = "(headers['messageType']?:'')=='GoodsUnavailableEvent'")
   @Transactional
-  public void goodUnavailableReveived(Message<Order> message) throws JsonParseException, JsonMappingException, IOException {
+  public void goodUnavailableReveived(Message<Order> message) {
 
     logger.info(
       "The following order could not be shipped, since they are not available in our inventory: {}",
       message.getPayload()
     );
+    message.setMessageType("CustomerInformedEvent");
+    messageSender.send(message);
   }
 
 

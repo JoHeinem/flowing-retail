@@ -21,6 +21,8 @@
     <module>monitor</module>
     <module>order-validation</module>
     <module>inform-customer</module>
+    <module>order-cancelled</module>
+    <module>order-completed</module>
   </modules>
 
   <build>
