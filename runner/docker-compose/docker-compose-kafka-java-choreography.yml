@@ -30,8 +30,8 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
   inform-customer:
     build: ../../kafka/java/inform-customer/
@@ -39,16 +39,16 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
   order-validation:
     build: ../../kafka/java/order-validation/
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
   payment:
     build: ../../kafka/java/payment/
@@ -58,8 +58,8 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
   inventory:
     build: ../../kafka/java/inventory/
@@ -67,8 +67,8 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
   shipping:
     build: ../../kafka/java/shipping/
@@ -76,8 +76,8 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
 
   monitor:
     image: flowingretail/kafka-java-monitor
@@ -87,5 +87,5 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=kafka:2181
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=localhost:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES=localhost:2181
