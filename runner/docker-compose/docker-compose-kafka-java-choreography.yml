@@ -44,8 +44,6 @@ services:
 
   order-validation:
     build: ../../kafka/java/order-validation/
-    networks:
-      - flowing
     depends_on:
       - kafka
     environment:
