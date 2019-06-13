@@ -26,7 +26,7 @@ public class MessageListener {
 
     logger.info("Received an OrderRejectedEvent with the order: {}", message.getPayload());
     Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
-    newMessage.setMessageType("OrderCancelledEvent");
+    newMessage.setMessageType("OrderCancelledDueToRejectionEvent");
     messageSender.send(newMessage);
   }
 
@@ -37,7 +37,7 @@ public class MessageListener {
 
     logger.info("Received an CustomerInformedEvent with the order: {}", message.getPayload());
     Message<Order> newMessage = new Message<>(message.getMessageType(), message.getTraceId(), message.getPayload());
-    newMessage.setMessageType("OrderCancelledEvent");
+    newMessage.setMessageType("OrderCancelledDueToPaymentFailedEvent");
     messageSender.send(newMessage);
   }
   
