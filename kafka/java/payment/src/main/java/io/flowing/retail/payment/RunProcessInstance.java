@@ -43,7 +43,7 @@ public class RunProcessInstance {
     if (!definition.isPresent()) {
       definitionId = engineClient.deployProcessAndGetId(
         Bpmn.readModelFromStream(
-          RunProcessInstance.class.getResourceAsStream("payment.bpmn")));
+          RunProcessInstance.class.getResourceAsStream("/payment.bpmn")));
     } else {
       definitionId = definition.get().getId();
     }
