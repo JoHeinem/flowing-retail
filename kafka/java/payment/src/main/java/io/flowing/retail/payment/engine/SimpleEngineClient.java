@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jayway.jsonpath.JsonPath;
-import io.flowing.retail.payment.RunProcessInstance;
 import io.flowing.retail.payment.engine.dto.DeploymentDto;
 import io.flowing.retail.payment.engine.dto.MessageCorrelationDto;
 import io.flowing.retail.payment.engine.dto.ProcessInstanceEngineDto;
@@ -56,8 +55,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.dmn.Dmn;
-import org.camunda.bpm.model.dmn.DmnModelInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -962,55 +959,6 @@ public class SimpleEngineClient {
     }
   }
 
-  public DecisionDefinitionEngineDto deployAndStartDecisionDefinition(DmnModelInstance dmnModelInstance) {
-    return deployAndStartDecisionDefinition(dmnModelInstance, null);
-  }
 
-  public DecisionDefinitionEngineDto deployAndStartDecisionDefinition(DmnModelInstance dmnModelInstance,
-                                                                      String tenantId) {
-    final DecisionDefinitionEngineDto decisionDefinitionEngineDto = deployDecisionDefinition(
-      dmnModelInstance,
-      tenantId
-    );
-    startDecisionInstance(decisionDefinitionEngineDto.getId());
-    return decisionDefinitionEngineDto;
-  }
 
-  public DecisionDefinitionEngineDto deployDecisionDefinition(String dmnPath) {
-    return deployDecisionDefinition(dmnPath, null);
-  }
-
-  public DecisionDefinitionEngineDto deployDecisionDefinition(String dmnPath, String tenantId) {
-    final DmnModelInstance dmnModelInstance = Dmn.readModelFromStream(
-      getClass().getClassLoader().getResourceAsStream(dmnPath)
-    );
-    return deployDecisionDefinition(dmnModelInstance, tenantId);
-  }
-
-  public DecisionDefinitionEngineDto deployDecisionDefinition(DmnModelInstance dmnModelInstance) {
-    return deployDecisionDefinition(dmnModelInstance, null);
-  }
-
-  public DecisionDefinitionEngineDto deployDecisionDefinition(DmnModelInstance dmnModelInstance, String tenantId) {
-    CloseableHttpClient client = getHttpClient();
-    DeploymentDto deploymentDto = deployDecisionDefinition(dmnModelInstance, client, tenantId);
-    return getDecisionDefinitionByDeployment(deploymentDto);
-  }
-
-  private DeploymentDto deployDecisionDefinition(DmnModelInstance dmnModelInstance, CloseableHttpClient client,
-                                                 String tenantId) {
-    String decisionDefinition = Dmn.convertToString(dmnModelInstance);
-    HttpPost deploymentRequest = createDeploymentRequest(decisionDefinition, "test.dmn", tenantId);
-    DeploymentDto deployment = new DeploymentDto();
-    try (CloseableHttpResponse response = client.execute(deploymentRequest)) {
-      if (response.getStatusLine().getStatusCode() != 200) {
-        throw new RuntimeException("Something really bad happened during deployment, could not create a deployment!");
-      }
-      String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
-      deployment = objectMapper.readValue(responseString, DeploymentDto.class);
-    } catch (IOException e) {
-      logger.error("Error during deployment request! Could not deploy the given decisionDefinition model!", e);
-    }
-    return deployment;
-  }
 }
